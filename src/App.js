@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
@@ -7,11 +6,19 @@ function App() {
       <header className="App-header">
         <footer>
           This project was coded by Sibongile Tsopo. The code is hosted on
-          <a href="" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/SibongileT88/react-weather-project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Github
           </a>
           . The website is hosted on{" "}
-          <a href="" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/SibongileT88/react-weather-project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Netlify
           </a>
         </footer>
