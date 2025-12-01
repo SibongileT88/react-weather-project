@@ -1,31 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import WeatherIcon from "./WeatherIcon";
 import "./WeatherForecast.css";
+import WeatherForecastDay from "./WeatherForecastDay";
 import axios from "axios";
 
 export default function WeatherForecast(props) {
+  let [loaded, setLoaded] = useState(false);
+  let [forecast, setForecast] = useState(null);
   function handleResponse(response) {
-    console.log(response.data);
+    setForecast(response.data.daily);
+    setLoaded(true);
   }
-  let apiKey = "0c5feca50of64837dbc3d78adbt43801";
-  //let longitude = props.coordinates.lon;
-  //let latitude = props.coordinates.lat;
-
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=Dubai&key=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(handleResponse);
-  return (
-    <div className="WeatherForecast">
-      <div className="row">
-        <div className="col">
-          <div className="WeatherForecast-day">Mon</div>
-          <WeatherIcon code="01d" size={36} />
-          <div className="WeatherForecast-temp">
-            <span className="WeatherForecast-temp-max">22°</span>
-            <span className="WeatherForecast-temp-min">11°</span>
+  if (loaded) {
+    //console.log(forecast);
+    return (
+      <div className="WeatherForecast">
+        <div className="row">
+          <div className="col">
+            <WeatherForecastDay data={forecast[0]} />
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    let apiKey = "0c5feca50of64837dbc3d78adbt43801";
+    let longitude = props.coordinates.lon;
+    let latitude = props.coordinates.lat;
+
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${longitude}&lat=${latitude}&key=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(handleResponse);
+    return null;
+  }
 }
